@@ -1,5 +1,5 @@
-from cgitb import html
-from multiprocessing import context
+
+
 import smtplib,ssl
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -97,31 +97,11 @@ with smtplib.SMTP_SSL("smtp.gmail.com",465,context=context) as server:
     print("Inicio sesion")  
     server.sendmail(username,destinatario,mensaje.as_string())
     print("mensaje enviado")
+    server.quit()
 
 
 
-# from email.mime.multipart import MIMEMultipart
-# from email.mime.text import MIMEText
-# mail_content = "holaaaa"
-# #The mail addresses and password
-# sender_address = 'jairo.urrego@ugc.edu.co'
-# sender_pass = 'jairoMUG123#'
-# receiver_address = 'jairourrego123@gmail.com'
-# #Setup the MIME
-# message = MIMEMultipart()
-# message['From'] = sender_address
-# message['To'] = receiver_address
-# message['Subject'] = 'A test mail sent by Python. It has an attachment.'   #The subject line
-# #The body and the attachments for the mail
-# message.attach(MIMEText(mail_content, 'plain'))
-# #Create SMTP session for sending the mail
-# session = smtplib.SMTP('smtp.gmail.com', 587) #use gmail with port
-# session.starttls() #enable security
-# session.login(sender_address, sender_pass) #login with mail_id and password
-# text = message.as_string()
-# session.sendmail(sender_address, receiver_address, text)
-# session.quit()
-# print('Mail Sent')
+
 
 
 # *https://es.stackoverflow.com/questions/539447/envio-autom%C3%A1tico-de-correos-con-python-y-smtp-actualizaci%C3%B3n-junio-2022
