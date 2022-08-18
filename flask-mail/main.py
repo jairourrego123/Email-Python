@@ -83,16 +83,18 @@ def index():
         estilo_filas =request_data['mensaje']['cuerpo']['tabla']['filas']['style']
         pie=request_data['mensaje']['firma']['firma']
         estilo_pie=request_data['mensaje']['firma']['style']
+        despedida=request_data['mensaje']['despedida']
           
         msg.html = msg.html + tabla() + columnas(atributos,estilo_columnas)
         
 
         
-        for iterator in range(len(filas)-1):
+        for iterator in range(len(filas)):
 
           msg.html = msg.html + registros(atributos,filas[iterator],estilo_filas)
     
-        msg.html=msg.html + "</table> </div> <br><br>  Este es un correo electrónico generado <b> automáticamente </b> por favor no responder. <br> Gracias  <br><br><br>" 
+        msg.html=msg.html + "</table> </div> <br><br>  " 
+        msg.html = msg.html + despedida + "<br> <br>" + "Este es un correo electrónico generado <b> automáticamente </b> por favor no responder. <br><br><br>"
 
         msg.html=msg.html + firma(pie,estilo_pie)
     else :
