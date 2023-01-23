@@ -9,7 +9,7 @@ from werkzeug.utils import secure_filename
 import os
 import magic
 import smtplib
-import os
+
 
 username = 'no_contestar@ugc.edu.co'
 password = 'zhuzsxaohjpeguix'
