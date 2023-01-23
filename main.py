@@ -145,7 +145,7 @@ def index():
         with app.open_resource(os.getcwd()+"/public/adjuntos/"+request_data["adjunto"]) as fp:  
           
           mime=magic.from_file(os.getcwd()+"/public/adjuntos/"+request_data["adjunto"],mime=True)  
-          msg.attach(os.getcwd()+"/public/adjuntos/"+request_data["adjunto"], mime, fp.read()) 
+          msg.attach(request_data["adjunto"].capitalize(), mime, fp.read()) 
           
         mail.send(msg)
         remove(os.getcwd()+"/public/adjuntos/"+request_data["adjunto"])
