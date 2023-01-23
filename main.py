@@ -1,10 +1,11 @@
 # importing libraries
 from tkinter.ttk import Style
-
+from os import remove
 from flask import Flask, request,Response
 from flask_mail import Mail, Message
 from flask_mail import *
 from werkzeug.utils import secure_filename
+
 import os
 import magic
 import smtplib
@@ -145,8 +146,14 @@ def index():
           
           mime=magic.from_file(os.getcwd()+"/public/adjuntos/"+request_data["adjunto"],mime=True)  
           msg.attach(os.getcwd()+"/public/adjuntos/"+request_data["adjunto"], mime, fp.read()) 
-      mail.send(msg)
+          
+        mail.send(msg)
+        remove(os.getcwd()+"/public/adjuntos/"+request_data["adjunto"])
+      else:
 
+        mail.send(msg)
+      
+      
       return Response("Enviado con exito",200)
 
   except NameError :
