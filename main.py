@@ -1,5 +1,5 @@
 # importing libraries
-from tkinter.ttk import Style
+
 from os import remove
 from flask import Flask, request,Response
 from flask_mail import Mail, Message
@@ -7,7 +7,7 @@ from flask_mail import *
 from werkzeug.utils import secure_filename
 
 import os
-import magic
+import mimetypes
 import smtplib
 
 
@@ -76,7 +76,7 @@ def index():
   try:
    
       request_data = request.get_json()
-
+    
       destinatario = request_data['destinatario']
       asunto = request_data['asunto']
       pie = ["Centro de Conciliacion Jose Jose Ignacio Talero Lozada","Universidad la Gran Colombia","Teléfono: 3340883","Calle 12 No.8 -37 ", "<u>ccjoseignaciotalerolosada@ugc.edu.co</u>"]
@@ -143,9 +143,8 @@ def index():
       if 'adjunto'  in request_data:
       
         with app.open_resource(os.getcwd()+"/public/adjuntos/"+request_data["adjunto"]) as fp:  
-          
-          mime=magic.from_file(os.getcwd()+"/public/adjuntos/"+request_data["adjunto"],mime=True)  
-          msg.attach(request_data["adjunto"].capitalize(), mime, fp.read()) 
+          mime = mimetypes.guess_type(os.getcwd()+"/public/adjuntos/"+request_data["adjunto"])
+          msg.attach(request_data["adjunto"].capitalize(), mime[0], fp.read()) 
           
         mail.send(msg)
         remove(os.getcwd()+"/public/adjuntos/"+request_data["adjunto"])
@@ -165,7 +164,7 @@ def index():
 @app.route('/adjuntar', methods=['POST'])
 def adjuntar():
   try:
-    
+    print("entreee aquii")
     if 'adjunto' not in request.files:
 
       return Response ("El name para enviar adjuntos debe ser ""adjunto""",400)
@@ -183,7 +182,7 @@ def adjuntar():
     return  Response (filename,201)
 
   except NameError :
-      print("err")
+    
       Response ("No se pudo guardar cargar el archivo",400)
       
 @app.route('/validar', methods=['POST'])
