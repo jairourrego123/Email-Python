@@ -1,2 +1,2 @@
 # Email-Python
-Sending emails using python
+Sending emails using python V2
