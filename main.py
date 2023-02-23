@@ -10,9 +10,9 @@ import os
 import mimetypes
 import smtplib
 
-
-username = 'no_contestar@ugc.edu.co'
-password = 'zhuzsxaohjpeguix'
+import os
+username= os.getenv("EMAIL_USER","no_contestar@ugc.edu.co")
+password = os.getenv("EMAIL_PASS", 'zhuzsxaohjpeguix')
 
 
 def tabla():
@@ -79,7 +79,7 @@ def index():
     
       destinatario = request_data['destinatario']
       asunto = request_data['asunto']
-      pie = ["Centro de Conciliacion Jose Jose Ignacio Talero Lozada","Universidad la Gran Colombia","Teléfono: 3340883","Calle 12 No.8 -37 ", "<u>ccjoseignaciotalerolosada@ugc.edu.co</u>"]
+      pie = ["Centro de Conciliación José Ignacio Talero Losada de la Universidad La Gran Colombia","Tel. (57)3276999 Ext 2606 / 2602","Cel. 3212179704 ","Calle 12 No 8-37/50 ", "<u>ccjoseignaciotalerolosada@ugc.edu.co </u>"]
       msg = Message(asunto, sender=(
           request_data['nombre_servicio'], username), recipients=destinatario)
 
@@ -197,4 +197,4 @@ def validar():
     return Response ("No pudo ingresar al Correo",503)
 if __name__ == '__main__':
 
-    app.run(debug=True, port=5001)
+    app.run(debug = False)
