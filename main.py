@@ -106,23 +106,24 @@ def index():
               estilo_filas = request_data['mensaje']['cuerpo']['tabla']['filas']['style']
 
               msg.html = msg.html + tabla() + columnas(atributos, estilo_columnas)
-
+              
               for iterator in range(len(filas)):
 
                   msg.html = msg.html + \
                       registros(atributos, filas[iterator], estilo_filas)
-
-              msg.html = msg.html + "</table> </div> <br><br>  "
-
-
-          msg.html = msg.html + request_data['mensaje']['cuerpo'] +"<br><br>"
-          despedida = request_data['mensaje']['despedida']
-          if 'firma'  in request_data['mensaje']:
-        
-               estilo_pie = request_data['mensaje']['firma']['style']
-               pie = request_data['mensaje']['firma']['firma']
-               msg.html = msg.html + firma(pie,estilo_pie)
              
+              msg.html = msg.html + "</table> </div> <br><br>  "
+              
+          else:
+            msg.html = msg.html + request_data['mensaje']['cuerpo'] +"<br><br>"
+          despedida = request_data['mensaje']['despedida']
+            
+          if 'firma'  in request_data['mensaje']:
+              print ("bien")
+              estilo_pie = request_data['mensaje']['firma']['style']
+              pie = request_data['mensaje']['firma']['firma']
+              msg.html = msg.html + firma(pie,estilo_pie)
+              
          
           
       
@@ -131,7 +132,7 @@ def index():
               "Este es un correo electrónico generado <b> automáticamente </b> por favor no responder. <br><br><br>"
 
           msg.html = msg.html + firma(pie)
-        
+          
         except :
           
           return "Ocurrio un error al la informacion del cuerpo "
