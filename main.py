@@ -10,7 +10,7 @@ import os
 import mimetypes
 import smtplib
 
-import os
+
 username= os.getenv("EMAIL_USER","no_contestar@ugc.edu.co")
 password = os.getenv("EMAIL_PASS", 'zhuzsxaohjpeguix')
 
@@ -79,7 +79,7 @@ def index():
     
       destinatario = request_data['destinatario']
       asunto = request_data['asunto']
-      pie = ["Centro de Conciliación José Ignacio Talero Losada de la Universidad La Gran Colombia","Tel. (57)3276999 Ext 2606 / 2602","Cel. 3212179704 ","Calle 12 No 8-37/50 ", "<u>ccjoseignaciotalerolosada@ugc.edu.co </u>"]
+      pie = [""]
       msg = Message(asunto, sender=(
           request_data['nombre_servicio'], username), recipients=destinatario)
 
@@ -106,32 +106,35 @@ def index():
               estilo_filas = request_data['mensaje']['cuerpo']['tabla']['filas']['style']
 
               msg.html = msg.html + tabla() + columnas(atributos, estilo_columnas)
-
+              
               for iterator in range(len(filas)):
 
                   msg.html = msg.html + \
                       registros(atributos, filas[iterator], estilo_filas)
-
-              msg.html = msg.html + "</table> </div> <br><br>  "
-
-
-          msg.html = msg.html + request_data['mensaje']['cuerpo'] +"<br><br>"
-          despedida = request_data['mensaje']['despedida']
-          if 'firma'  in request_data['mensaje']:
-        
-               estilo_pie = request_data['mensaje']['firma']['style']
-               pie = request_data['mensaje']['firma']['firma']
-               msg.html = msg.html + firma(pie,estilo_pie)
              
+              msg.html = msg.html + "</table> </div> <br><br>  "
+              
+          else:
+            msg.html = msg.html + request_data['mensaje']['cuerpo'] +"<br><br>"
+          despedida = request_data['mensaje']['despedida']
+
+          msg.html = msg.html + despedida + "<br> <br>" + \
+              "Este es un correo electrónico generado <b> automáticamente </b> por favor no responder. <br><br><br>"
+            
+          if 'firma'  in request_data['mensaje']:
+         
+              estilo_pie = request_data['mensaje']['firma']['style']
+              pie = request_data['mensaje']['firma']['firma']
+              # msg.html = msg.html + firma(pie,estilo_pie)
+              
          
           
       
 
-          msg.html = msg.html + despedida + "<br> <br>" + \
-              "Este es un correo electrónico generado <b> automáticamente </b> por favor no responder. <br><br><br>"
+          
 
           msg.html = msg.html + firma(pie)
-        
+          
         except :
           
           return "Ocurrio un error al la informacion del cuerpo "
@@ -197,4 +200,4 @@ def validar():
     return Response ("No pudo ingresar al Correo",503)
 if __name__ == '__main__':
 
-    app.run(debug = False)
+    app.run(debug=True, port=5001)
