@@ -12,7 +12,7 @@ import smtplib
 
 
 username= os.getenv("EMAIL_USER","no_contestar@ugc.edu.co")
-password = os.getenv("EMAIL_PASS", 'zhuzsxaohjpeguix')
+password = os.getenv("EMAIL_PASS", '')
 
 
 def tabla():
