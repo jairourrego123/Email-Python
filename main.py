@@ -74,9 +74,9 @@ mail = Mail(app)
 @app.route('/', methods=['POST'])
 def index():
   try:
-   
+      
       request_data = request.get_json()
-    
+
       destinatario = request_data['destinatario']
       asunto = request_data['asunto']
       pie = ["Centro de Conciliacion Jose Jose Ignacio Talero Lozada","Universidad la Gran Colombia","Teléfono: 3340883","Calle 12 No.8 -37 ", "<u>ccjoseignaciotalerolosada@ugc.edu.co</u>"]
