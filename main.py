@@ -123,7 +123,7 @@ def index():
             
           if 'firma'  in request_data['mensaje']:
          
-              # estilo_pie = request_data['mensaje']['firma']['style']
+              #estilo_pie = request_data['mensaje']['firma']['style']
               pie = request_data['mensaje']['firma']['firma']
               # msg.html = msg.html + firma(pie,estilo_pie)
               
